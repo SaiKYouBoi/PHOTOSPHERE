@@ -1,0 +1,88 @@
+---
+config:
+  look: neo
+  theme: redux
+---
+
+erDiagram
+    User{
+        INT name PK
+        string username
+        string email
+        string password
+        enum role
+        string bio
+        string profile_pic
+        boolean is_active
+        datetime subsciprtion_start
+        datetime subsciprtion_end
+        datetime last_login
+        datetime created_at
+    }
+
+    Post{
+        INT id PK
+        INT user_id FK
+        string title
+        text discription
+        string file_path
+        enum status
+        INT views_count
+        datetime created_at
+        datetime published-at 
+    }
+
+    Album{
+        INT id PK
+        INT user_id FK
+        string title 
+        text description
+        enum visibility
+        INT photo_count
+        datetime created_at
+        datetime updated_at
+    }
+
+    Tag{
+        INT id
+        string name
+    }
+
+    Post_tag{
+        INT photo_id FK
+        INT tag_id FK
+    }
+
+    Album_post{
+        INT album_id FK
+        INT post_id FK
+    }
+
+    Comment{
+        INT id PK
+        INT user_id FK
+        INT post_id FK
+        text content
+        datetime created_at
+    }
+
+    Like{
+        INT id PK
+        INT user_id FK
+        INT post_id FK
+    }
+
+    User ||--o{ Post : "uploads"
+    User ||--o{ Album : "creates"
+    User ||--o{ Comment : "writes"
+    User ||--o{ Like : "gives"
+
+    Album ||--o{ Album_post : "contains"
+    Post ||--o{ Album_post : "belongs to"
+
+    Post ||--o{ Post_tag : "has"
+    Tag ||--o{ Post_tag : "labels"
+
+    Post ||--o{ Comment : "receives"
+
+    Like ||--o{ Post : "contains"

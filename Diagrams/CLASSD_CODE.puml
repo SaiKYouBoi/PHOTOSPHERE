@@ -1,0 +1,147 @@
+@startuml
+
+class User {
+  - id: Integer
+  - username: String
+  - email: String
+  - passwordHash: String
+  - bio: String
+  - profilePhotoPath: String
+  - createdAt: DateTime
+  - lastLogin: DateTime
+  - userType: UserType
+}
+
+class BasicUser {
+  - monthlyUploadCount: Integer
+  - lastResetDate: Date
+}
+
+class ProUser {
+  - subscriptionStart: Date
+  - subscriptionEnd: Date
+  - isSubscriptionActive: Boolean
+  --
+}
+
+class Moderator {
+  - moderatorLevel: ModeratorLevel
+  - moderationCount: Integer
+}
+
+class Administrator {
+  - isSuperAdmin: Boolean
+  - adminLevel: Integer
+}
+
+User <|-- BasicUser
+User <|-- ProUser
+User <|-- Moderator
+User <|-- Administrator
+
+
+class Photo {
+  - id: Integer
+  - userId: Integer
+  - title: String
+  - description: String
+  - filePath: String
+  - fileSize: Integer
+  - mimeType: String
+  - dimensions: String
+  - status: PhotoStatus
+  - publishedAt: DateTime
+  - viewCount: Integer
+  - likeCount: Integer
+  - createdAt: DateTime
+  - updatedAt: DateTime
+}
+
+class Album {
+  - id: Integer
+  - userId: Integer
+  - name: String
+  - description: String
+  - coverPhotoId: Integer
+  - isPrivate: Boolean
+  - photoCount: Integer
+  - createdAt: DateTime
+  - updatedAt: DateTime
+}
+
+class Tag {
+  - id: Integer
+  - name: String
+  - slug: String
+  - usageCount: Integer
+}
+
+class Comment {
+  - id: Integer
+  - userId: Integer
+  - photoId: Integer
+  - parentId: Integer
+  - content: String
+  - isEdited: Boolean
+  - createdAt: DateTime
+  - updatedAt: DateTime
+}
+
+class Like {
+  - id: Integer
+  - userId: Integer
+  - photoId: Integer
+  - createdAt: DateTime
+}
+
+class AuditLog {
+  - id: Integer
+  - userId: Integer
+  - action: String
+  - entityType: String
+  - entityId: Integer
+  - details: JSON
+  - ipAddress: String
+  - createdAt: DateTime
+}
+
+
+class AlbumPhoto {
+  - albumId: Integer
+  - photoId: Integer
+  - addedAt: DateTime
+}
+
+class PhotoTag {
+  - photoId: Integer
+  - tagId: Integer
+}
+
+
+
+User "1" -- "0..*" Photo : owns
+User "1" -- "0..*" Album : owns
+User "1" -- "0..*" Comment : writes
+User "1" -- "0..*" Like : gives
+User "1" -- "0..*" AuditLog : performs
+
+
+Photo "*" -- "1" User : uploaded_by
+Photo "1" -- "0..*" Comment : has
+Photo "1" -- "0..*" Like : receives
+
+
+Album "*" -- "1" User : created_by
+Album "1" -- "0..1" Photo : has_cover_photo
+
+
+Comment "*" -- "1" Photo : belongs_to
+
+
+' manytomany relationships
+Album "1" -- "0..*" AlbumPhoto
+Photo "1" -- "0..*" AlbumPhoto
+
+Photo "1" -- "0..*" PhotoTag
+Tag "1" -- "0..*" PhotoTag
+@enduml
