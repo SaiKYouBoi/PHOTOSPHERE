@@ -8,29 +8,24 @@ CREATE TABLE users (
 
     username VARCHAR(50) NOT NULL UNIQUE,
     email VARCHAR(100) NOT NULL UNIQUE,
+    
     password_hash VARCHAR(255) NOT NULL,
-
     role ENUM('basic', 'pro', 'moderator', 'admin') NOT NULL DEFAULT 'basic',
-
     bio TEXT DEFAULT NULL,
+    
     profile_picture VARCHAR(255) DEFAULT NULL,
-
     is_active BOOLEAN NOT NULL DEFAULT TRUE,
-
     monthly_uploads INT DEFAULT NULL,
-
+    
     subscription_start DATETIME DEFAULT NULL,
     subscription_end DATETIME DEFAULT NULL,
-
     moderator_level VARCHAR(50) DEFAULT NULL,
-
     is_super_admin BOOLEAN DEFAULT NULL,
-
+    
     last_login DATETIME DEFAULT NULL,
-
     created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
     deleted_at DATETIME DEFAULT NULL,
-
+    
     INDEX idx_users_deleted_at (deleted_at)
 );
 
@@ -58,10 +53,6 @@ CREATE TABLE posts (
     INDEX idx_posts_deleted_at (deleted_at),
     INDEX idx_posts_user (user_id),
 
-    CONSTRAINT fk_posts_user
-        FOREIGN KEY (user_id)
-        REFERENCES users(id)
-        ON DELETE RESTRICT
 );
 
 
@@ -84,15 +75,6 @@ CREATE TABLE albums (
     UNIQUE (user_id, name),
     INDEX idx_albums_deleted_at (deleted_at),
 
-    CONSTRAINT fk_albums_user
-        FOREIGN KEY (user_id)
-        REFERENCES users(id)
-        ON DELETE RESTRICT,
-
-    CONSTRAINT fk_albums_cover
-        FOREIGN KEY (cover_photo_id)
-        REFERENCES posts(id)
-        ON DELETE SET NULL
 );
 
 
@@ -102,15 +84,6 @@ CREATE TABLE album_posts (
 
     PRIMARY KEY (album_id, post_id),
 
-    CONSTRAINT fk_album_posts_album
-        FOREIGN KEY (album_id)
-        REFERENCES albums(id)
-        ON DELETE CASCADE,
-
-    CONSTRAINT fk_album_posts_post
-        FOREIGN KEY (post_id)
-        REFERENCES posts(id)
-        ON DELETE CASCADE
 );
 
 
@@ -128,15 +101,6 @@ CREATE TABLE post_tags (
 
     PRIMARY KEY (post_id, tag_id),
 
-    CONSTRAINT fk_post_tags_post
-        FOREIGN KEY (post_id)
-        REFERENCES posts(id)
-        ON DELETE CASCADE,
-
-    CONSTRAINT fk_post_tags_tag
-        FOREIGN KEY (tag_id)
-        REFERENCES tags(id)
-        ON DELETE CASCADE
 );
 
 
@@ -156,21 +120,7 @@ CREATE TABLE comments (
 
     INDEX idx_comments_deleted_at (deleted_at),
     INDEX idx_comments_post (post_id),
-
-    CONSTRAINT fk_comments_user
-        FOREIGN KEY (user_id)
-        REFERENCES users(id)
-        ON DELETE RESTRICT,
-
-    CONSTRAINT fk_comments_post
-        FOREIGN KEY (post_id)
-        REFERENCES posts(id)
-        ON DELETE CASCADE,
-
-    CONSTRAINT fk_comments_parent
-        FOREIGN KEY (parent_id)
-        REFERENCES comments(id)
-        ON DELETE CASCADE
+ 
 );
 
 
@@ -183,13 +133,4 @@ CREATE TABLE likes (
 
     UNIQUE (user_id, post_id),
 
-    CONSTRAINT fk_likes_user
-        FOREIGN KEY (user_id)
-        REFERENCES users(id)
-        ON DELETE RESTRICT,
-
-    CONSTRAINT fk_likes_post
-        FOREIGN KEY (post_id)
-        REFERENCES posts(id)
-        ON DELETE CASCADE
 );
