@@ -1,3 +1,4 @@
+<?php
 class Comment {
     private ?int $id;
     private int $userId;

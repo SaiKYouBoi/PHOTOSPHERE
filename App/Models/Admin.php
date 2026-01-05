@@ -1,6 +1,7 @@
-class Moderator extends User {
-    private string $moderatorLevel;
-    private int $moderationCount;
+<?php
+class Admin extends User {
+    private bool $isSuperAdmin;
+    private int $adminLevel;
 
     public function __construct(
         ?int $id,
@@ -12,8 +13,8 @@ class Moderator extends User {
         DateTime $createdAt,
         ?DateTime $lastLogin,
         string $userType,
-        string $moderatorLevel,
-        int $moderationCount
+        bool $isSuperAdmin,
+        int $adminLevel
     ) {
         parent::__construct(
             $id,
@@ -26,7 +27,12 @@ class Moderator extends User {
             $lastLogin,
             $userType
         );
-        $this->moderatorLevel = $moderatorLevel;
-        $this->moderationCount = $moderationCount;
+        $this->isSuperAdmin = $isSuperAdmin;
+        $this->adminLevel = $adminLevel;
+    }
+
+    public function getIsSuperAdmin(): bool
+    {
+        return $this->isSuperAdmin;
     }
 }

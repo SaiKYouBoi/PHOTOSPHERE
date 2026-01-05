@@ -1,6 +1,6 @@
-@startuml
+@startuml Photosphere
 
-class User {
+abstract class User {
   - id: Integer
   - username: String
   - email: String

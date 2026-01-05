@@ -1,7 +1,7 @@
-class ProUser extends User {
-    private DateTime $subscriptionStart;
-    private ?DateTime $subscriptionEnd;
-    private bool $isSubscriptionActive;
+<?php
+class Moderator extends User {
+    private string $moderatorLevel;
+    private int $moderationCount;
 
     public function __construct(
         ?int $id,
@@ -13,9 +13,8 @@ class ProUser extends User {
         DateTime $createdAt,
         ?DateTime $lastLogin,
         string $userType,
-        DateTime $subscriptionStart,
-        ?DateTime $subscriptionEnd,
-        bool $isSubscriptionActive
+        string $moderatorLevel,
+        int $moderationCount
     ) {
         parent::__construct(
             $id,
@@ -28,8 +27,7 @@ class ProUser extends User {
             $lastLogin,
             $userType
         );
-        $this->subscriptionStart = $subscriptionStart;
-        $this->subscriptionEnd = $subscriptionEnd;
-        $this->isSubscriptionActive = $isSubscriptionActive;
+        $this->moderatorLevel = $moderatorLevel;
+        $this->moderationCount = $moderationCount;
     }
 }

@@ -1,7 +1,8 @@
-
-class BasicUser extends User {
-    private int $monthlyUploadCount;
-    private ?DateTime $lastResetDate;
+<?php
+class ProUser extends User {
+    private DateTime $subscriptionStart;
+    private ?DateTime $subscriptionEnd;
+    private bool $isSubscriptionActive;
 
     public function __construct(
         ?int $id,
@@ -13,8 +14,9 @@ class BasicUser extends User {
         DateTime $createdAt,
         ?DateTime $lastLogin,
         string $userType,
-        int $monthlyUploadCount,
-        ?DateTime $lastResetDate
+        DateTime $subscriptionStart,
+        ?DateTime $subscriptionEnd,
+        bool $isSubscriptionActive
     ) {
         parent::__construct(
             $id,
@@ -27,7 +29,8 @@ class BasicUser extends User {
             $lastLogin,
             $userType
         );
-        $this->monthlyUploadCount = $monthlyUploadCount;
-        $this->lastResetDate = $lastResetDate;
+        $this->subscriptionStart = $subscriptionStart;
+        $this->subscriptionEnd = $subscriptionEnd;
+        $this->isSubscriptionActive = $isSubscriptionActive;
     }
 }

@@ -1,3 +1,4 @@
+<?php
 class AlbumPhoto {
     private int $albumId;
     private int $photoId;

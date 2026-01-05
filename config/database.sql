@@ -51,7 +51,7 @@ CREATE TABLE posts (
     deleted_at DATETIME DEFAULT NULL,
 
     INDEX idx_posts_deleted_at (deleted_at),
-    INDEX idx_posts_user (user_id),
+    INDEX idx_posts_user (user_id)
 
 );
 
@@ -73,7 +73,7 @@ CREATE TABLE albums (
     deleted_at DATETIME DEFAULT NULL,
 
     UNIQUE (user_id, name),
-    INDEX idx_albums_deleted_at (deleted_at),
+    INDEX idx_albums_deleted_at (deleted_at)
 
 );
 
@@ -99,7 +99,7 @@ CREATE TABLE post_tags (
     post_id INT NOT NULL,
     tag_id INT NOT NULL,
 
-    PRIMARY KEY (post_id, tag_id),
+    PRIMARY KEY (post_id, tag_id)
 
 );
 
@@ -119,7 +119,7 @@ CREATE TABLE comments (
     deleted_at DATETIME DEFAULT NULL,
 
     INDEX idx_comments_deleted_at (deleted_at),
-    INDEX idx_comments_post (post_id),
+    INDEX idx_comments_post (post_id)
  
 );
 
@@ -131,6 +131,6 @@ CREATE TABLE likes (
 
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
 
-    UNIQUE (user_id, post_id),
+    UNIQUE (user_id, post_id)
 
 );

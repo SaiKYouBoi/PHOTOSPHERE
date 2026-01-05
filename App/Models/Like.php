@@ -1,3 +1,4 @@
+<?php
 class Like {
     private ?int $id;
     private int $userId;

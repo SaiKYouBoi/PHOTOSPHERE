@@ -1,3 +1,4 @@
+<?php
 class PhotoTag {
     private int $photoId;
     private int $tagId;

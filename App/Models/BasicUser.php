@@ -1,6 +1,7 @@
-class Administrator extends User {
-    private bool $isSuperAdmin;
-    private int $adminLevel;
+<?php
+class BasicUser extends User {
+    private int $monthlyUploadCount;
+    private ?DateTime $lastResetDate;
 
     public function __construct(
         ?int $id,
@@ -12,8 +13,8 @@ class Administrator extends User {
         DateTime $createdAt,
         ?DateTime $lastLogin,
         string $userType,
-        bool $isSuperAdmin,
-        int $adminLevel
+        int $monthlyUploadCount,
+        ?DateTime $lastResetDate
     ) {
         parent::__construct(
             $id,
@@ -26,7 +27,7 @@ class Administrator extends User {
             $lastLogin,
             $userType
         );
-        $this->isSuperAdmin = $isSuperAdmin;
-        $this->adminLevel = $adminLevel;
+        $this->monthlyUploadCount = $monthlyUploadCount;
+        $this->lastResetDate = $lastResetDate;
     }
 }
