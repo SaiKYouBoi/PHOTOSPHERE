@@ -1,4 +1,6 @@
 <?php
+
+
 class ProUser extends User {
     private DateTime $subscriptionStart;
     private ?DateTime $subscriptionEnd;

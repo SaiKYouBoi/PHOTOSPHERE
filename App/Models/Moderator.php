@@ -1,4 +1,7 @@
 <?php
+
+require_once __DIR__ . '/User.php';
+
 class Moderator extends User {
     private string $moderatorLevel;
     private int $moderationCount;

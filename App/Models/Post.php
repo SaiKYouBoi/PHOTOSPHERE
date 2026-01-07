@@ -1,4 +1,5 @@
 <?php
+
 class Photo {
     private ?int $id;
     private int $userId;

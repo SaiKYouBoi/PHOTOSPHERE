@@ -1,4 +1,5 @@
 <?php
+require_once __DIR__ . '/../Repositories/UserRepository.php';
 
 class Auth
 {
@@ -8,12 +9,10 @@ class Auth
         $user = $userRepo->findByEmail($email);
 
         if ($user && password_verify($password, $user->getPasswordHash())) {
-            if ($user->getDeletedAt() !== null) {
-                return false;
-            }
-
-            $_SESSION['user'] = $user;
-            $_SESSION['is_super_admin'] = $user instanceof Admin ? $user->getIsSuperAdmin() : false;
+           
+            $_SESSION['user_id'] = $user->getId();
+            $_SESSION['role'] = $user->getUserType();
+            $_SESSION['user_email'] = $user->getEmail();
 
             return true;
         }
@@ -21,31 +20,18 @@ class Auth
         return false;
     }
 
-    public static function register(array $data): bool|User
+    public static function isAuthenticated(): bool
     {
-        $userRepo = new UserRepository();
-
-        $data['role'] = $data['role'] ?? UserType::BASIC;
-
-
-        if ($userRepo->create($data)) {
-            
-            $newUser = $userRepo->findByEmail($data['email']);
-            
-            if ($newUser) {
-                self::login($data['email'], $data['password']);
-            }
-            
-            return $newUser;
+        return isset($_SESSION['user_id']);
+    }
+    
+    public static function getCurrentUser(): ?User
+    {
+        if (!self::isAuthenticated()) {
+            return null;
         }
 
-        return false;
-    }
-
-    public static function logout(): void
-    {
-        session_unset();
-        session_destroy();
+        $userRepo = new UserRepository();
+        return $userRepo->find($_SESSION['user_id']);
     }
 }
-

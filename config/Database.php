@@ -1,8 +1,9 @@
 <?php
+
 class Database {
     private $host = "localhost";
     private $db_name = "photosphere";
-    private $username = "root";
+    private $username = "saikyouboi";
     private $password = "ilias1234";
     private static $instance = null;
     public $conn;

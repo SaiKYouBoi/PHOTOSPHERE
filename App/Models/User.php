@@ -10,7 +10,6 @@ class User {
     private DateTime $createdAt;
     private ?DateTime $lastLogin;
     private string $userType;
-
     private ?DateTime $deletedAt;
 
     public function __construct(

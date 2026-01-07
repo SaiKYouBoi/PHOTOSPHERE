@@ -1,4 +1,7 @@
 <?php
+
+require_once __DIR__ . '/User.php';
+
 class BasicUser extends User {
     private int $monthlyUploadCount;
     private ?DateTime $lastResetDate;
