@@ -20,10 +20,6 @@ $user = $userRepo->findByEmail($email);
 if (Auth::login($email, $password)) {
     
     $currentUser = Auth::getCurrentUser();
-
-    var_dump($currentUser);
-    var_dump($_SESSION['role']);
-    exit();
     
     switch ($currentUser->getUserType()) {
         case 'basic':
