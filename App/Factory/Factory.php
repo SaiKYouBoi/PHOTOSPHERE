@@ -15,10 +15,10 @@ class UserFactory
         $email = $data['email'] ?? '';
         $passwordHash = $data['password_hash'] ?? '';
         $bio = $data['bio'] ?? null;
-        $profilePhotoPath = $data['profile_photo_path'] ?? null;
+        $profilePhotoPath = $data['profile_picture'] ?? null;
         $createdAt = isset($data['created_at']) ? new DateTime($data['created_at']) : new DateTime();
         $lastLogin = isset($data['last_login']) ? new DateTime($data['last_login']) : null;
-        $userType = $data['user_type'] ?? UserType::BASIC;
+        $userType = $data['role'];
 
         $userArgs = [
             $id,
@@ -39,7 +39,7 @@ class UserFactory
                     ...array_merge($userArgs, [
                         isset($data['subscription_start']) ? new DateTime($data['subscription_start']) : new DateTime(),
                         isset($data['subscription_end']) ? new DateTime($data['subscription_end']) : null,
-                        isset($data['is_subscription_active']) ? (bool)$data['is_subscription_active'] : true
+                        isset($data['is_active']) ? (bool)$data['is_active'] : true
                     ])
                 );
 
@@ -47,7 +47,6 @@ class UserFactory
                 return new Moderator(
                     ...array_merge($userArgs, [
                         $data['moderator_level'] ?? 'junior',
-                        $data['moderation_count'] ?? 0
                     ])
                 );
 
@@ -63,8 +62,8 @@ class UserFactory
             default:
                 return new BasicUser(
                     ...array_merge($userArgs, [
-                        $data['monthly_upload_count'] ?? 0,
-                        isset($data['last_reset_date']) ? new DateTime($data['last_reset_date']) : null
+                        $data['monthly_uploads'] ?? 0,
+                        isset($data['last_login']) ? new DateTime($data['last_login']) : null
                     ])
                 );
         }

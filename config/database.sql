@@ -1,4 +1,3 @@
-
 CREATE DATABASE IF NOT EXISTS photosphere;
 USE photosphere;
 
@@ -25,9 +24,10 @@ CREATE TABLE users (
     last_login DATETIME DEFAULT NULL,
     created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
     deleted_at DATETIME DEFAULT NULL,
-    
+
     INDEX idx_users_deleted_at (deleted_at)
 );
+
 
 CREATE TABLE posts (
     id INT AUTO_INCREMENT PRIMARY KEY,
@@ -51,8 +51,11 @@ CREATE TABLE posts (
     deleted_at DATETIME DEFAULT NULL,
 
     INDEX idx_posts_deleted_at (deleted_at),
-    INDEX idx_posts_user (user_id)
+    INDEX idx_posts_user (user_id),
 
+    CONSTRAINT fk_posts_user
+        FOREIGN KEY (user_id) REFERENCES users(id)
+        ON DELETE CASCADE
 );
 
 
@@ -73,8 +76,15 @@ CREATE TABLE albums (
     deleted_at DATETIME DEFAULT NULL,
 
     UNIQUE (user_id, name),
-    INDEX idx_albums_deleted_at (deleted_at)
+    INDEX idx_albums_deleted_at (deleted_at),
 
+    CONSTRAINT fk_albums_user
+        FOREIGN KEY (user_id) REFERENCES users(id)
+        ON DELETE CASCADE,
+
+    CONSTRAINT fk_albums_cover_photo
+        FOREIGN KEY (cover_photo_id) REFERENCES posts(id)
+        ON DELETE SET NULL
 );
 
 
@@ -84,6 +94,13 @@ CREATE TABLE album_posts (
 
     PRIMARY KEY (album_id, post_id),
 
+    CONSTRAINT fk_album_posts_album
+        FOREIGN KEY (album_id) REFERENCES albums(id)
+        ON DELETE CASCADE,
+
+    CONSTRAINT fk_album_posts_post
+        FOREIGN KEY (post_id) REFERENCES posts(id)
+        ON DELETE CASCADE
 );
 
 
@@ -99,8 +116,15 @@ CREATE TABLE post_tags (
     post_id INT NOT NULL,
     tag_id INT NOT NULL,
 
-    PRIMARY KEY (post_id, tag_id)
+    PRIMARY KEY (post_id, tag_id),
 
+    CONSTRAINT fk_post_tags_post
+        FOREIGN KEY (post_id) REFERENCES posts(id)
+        ON DELETE CASCADE,
+
+    CONSTRAINT fk_post_tags_tag
+        FOREIGN KEY (tag_id) REFERENCES tags(id)
+        ON DELETE CASCADE
 );
 
 
@@ -108,7 +132,7 @@ CREATE TABLE comments (
     id INT AUTO_INCREMENT PRIMARY KEY,
     user_id INT NOT NULL,
     post_id INT NOT NULL,
-    parent_id INT DEFAULT NULL,
+
 
     content TEXT NOT NULL,
     is_edited BOOLEAN NOT NULL DEFAULT FALSE,
@@ -119,8 +143,16 @@ CREATE TABLE comments (
     deleted_at DATETIME DEFAULT NULL,
 
     INDEX idx_comments_deleted_at (deleted_at),
-    INDEX idx_comments_post (post_id)
- 
+    INDEX idx_comments_post (post_id),
+
+    CONSTRAINT fk_comments_user
+        FOREIGN KEY (user_id) REFERENCES users(id)
+        ON DELETE CASCADE,
+
+    CONSTRAINT fk_comments_post
+        FOREIGN KEY (post_id) REFERENCES posts(id)
+        ON DELETE CASCADE
+
 );
 
 
@@ -131,6 +163,13 @@ CREATE TABLE likes (
 
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
 
-    UNIQUE (user_id, post_id)
+    UNIQUE (user_id, post_id),
 
+    CONSTRAINT fk_likes_user
+        FOREIGN KEY (user_id) REFERENCES users(id)
+        ON DELETE CASCADE,
+
+    CONSTRAINT fk_likes_post
+        FOREIGN KEY (post_id) REFERENCES posts(id)
+        ON DELETE CASCADE
 );

@@ -1,165 +1,159 @@
 <!DOCTYPE html>
-
 <html class="dark" lang="en"><head>
 <meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-<title>PhotoSphere Dashboard</title>
-<!-- Google Fonts -->
-<link href="https://fonts.googleapis.com" rel="preconnect"/>
-<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&amp;display=swap" rel="stylesheet"/>
-<!-- Material Symbols -->
-<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
-<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
-<!-- Tailwind CSS -->
+<title>PhotoSphere | Community Gallery</title>
 <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
-<!-- Tailwind Config -->
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
 <script id="tailwind-config">
-      tailwind.config = {
-        darkMode: "class",
-        theme: {
-          extend: {
-            colors: {
-              "primary": "#137fec",
-              "background-light": "#f6f7f8",
-              "background-dark": "#101922",
-              "surface-dark": "#1c2936",
-              "border-dark": "#233648",
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#137fec",
+                        "background-light": "#f6f7f8",
+                        "background-dark": "#101922",
+                    },
+                    fontFamily: {
+                        "display": ["Plus Jakarta Sans"]
+                    },
+                    borderRadius: {"DEFAULT": "0.5rem", "lg": "1rem", "xl": "1.5rem", "full": "9999px"},
+                },
             },
-            fontFamily: {
-              "display": ["Inter", "sans-serif"]
-            },
-            borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
-          },
-        },
-      }
+        }
     </script>
-<style>
-        /* Custom scrollbar for dark theme */
-        ::-webkit-scrollbar {
-            width: 8px;
-            height: 8px;
+<style type="text/tailwindcss">
+        body { font-family: 'Plus Jakarta Sans', sans-serif; }
+        .custom-scrollbar::-webkit-scrollbar {
+            width: 4px;
         }
-        ::-webkit-scrollbar-track {
-            background: #111a22; 
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: #233648;
+            border-radius: 10px;
         }
-        ::-webkit-scrollbar-thumb {
-            background: #233648; 
-            border-radius: 4px;
-        }
-        ::-webkit-scrollbar-thumb:hover {
-            background: #324d67; 
+        .no-scrollbar::-webkit-scrollbar {
+            display: none;
         }
     </style>
 </head>
-<body class="bg-background-light dark:bg-background-dark text-slate-900 dark:text-white font-display overflow-hidden h-screen flex flex-col antialiased selection:bg-primary/30">
-<!-- Top Navbar -->
-<header class="flex items-center justify-between whitespace-nowrap border-b border-solid border-border-dark bg-[#111a22] px-6 py-3 z-20 shrink-0">
+<body class="bg-background-light dark:bg-background-dark text-slate-900 dark:text-white transition-colors duration-300">
+<div class="relative flex h-screen w-full flex-col overflow-hidden">
+<header class="flex h-16 shrink-0 items-center justify-between border-b border-solid border-slate-200 dark:border-[#233648] bg-white/80 dark:bg-background-dark/80 backdrop-blur-md px-6 z-50">
 <div class="flex items-center gap-8">
-<div class="flex items-center gap-3 text-white">
-<div class="size-8 text-primary">
-<svg fill="none" viewbox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
-<g clip-path="url(#clip0_6_543)">
-<path d="M42.1739 20.1739L27.8261 5.82609C29.1366 7.13663 28.3989 10.1876 26.2002 13.7654C24.8538 15.9564 22.9595 18.3449 20.6522 20.6522C18.3449 22.9595 15.9564 24.8538 13.7654 26.2002C10.1876 28.3989 7.13663 29.1366 5.82609 27.8261L20.1739 42.1739C21.4845 43.4845 24.5355 42.7467 28.1133 40.548C30.3042 39.2016 32.6927 37.3073 35 35C37.3073 32.6927 39.2016 30.3042 40.548 28.1133C42.7467 24.5355 43.4845 21.4845 42.1739 20.1739Z" fill="currentColor"></path>
-<path clip-rule="evenodd" d="M7.24189 26.4066C7.31369 26.4411 7.64204 26.5637 8.52504 26.3738C9.59462 26.1438 11.0343 25.5311 12.7183 24.4963C14.7583 23.2426 17.0256 21.4503 19.238 19.238C21.4503 17.0256 23.2426 14.7583 24.4963 12.7183C25.5311 11.0343 26.1438 9.59463 26.3738 8.52504C26.5637 7.64204 26.4411 7.31369 26.4066 7.24189C26.345 7.21246 26.143 7.14535 25.6664 7.1918C24.9745 7.25925 23.9954 7.5498 22.7699 8.14278C20.3369 9.32007 17.3369 11.4915 14.4142 14.4142C11.4915 17.3369 9.32007 20.3369 8.14278 22.7699C7.5498 23.9954 7.25925 24.9745 7.1918 25.6664C7.14534 26.143 7.21246 26.345 7.24189 26.4066ZM29.9001 10.7285C29.4519 12.0322 28.7617 13.4172 27.9042 14.8126C26.465 17.1544 24.4686 19.6641 22.0664 22.0664C19.6641 24.4686 17.1544 26.465 14.8126 27.9042C13.4172 28.7617 12.0322 29.4519 10.7285 29.9001L21.5754 40.747C21.6001 40.7606 21.8995 40.931 22.8729 40.7217C23.9424 40.4916 25.3821 39.879 27.0661 38.8441C29.1062 37.5904 31.3734 35.7982 33.5858 33.5858C35.7982 31.3734 37.5904 29.1062 38.8441 27.0661C39.879 25.3821 40.4916 23.9425 40.7216 22.8729C40.931 21.8995 40.7606 21.6001 40.747 21.5754L29.9001 10.7285ZM29.2403 4.41187L43.5881 18.7597C44.9757 20.1473 44.9743 22.1235 44.6322 23.7139C44.2714 25.3919 43.4158 27.2666 42.252 29.1604C40.8128 31.5022 38.8165 34.012 36.4142 36.4142C34.012 38.8165 31.5022 40.8128 29.1604 42.252C27.2666 43.4158 25.3919 44.2714 23.7139 44.6322C22.1235 44.9743 20.1473 44.9757 18.7597 43.5881L4.41187 29.2403C3.29027 28.1187 3.08209 26.5973 3.21067 25.2783C3.34099 23.9415 3.8369 22.4852 4.54214 21.0277C5.96129 18.0948 8.43335 14.7382 11.5858 11.5858C14.7382 8.43335 18.0948 5.9613 21.0277 4.54214C22.4852 3.8369 23.9415 3.34099 25.2783 3.21067C26.5973 3.08209 28.1187 3.29028 29.2403 4.41187Z" fill="currentColor" fill-rule="evenodd"></path>
-</g>
-<defs>
-<clippath id="clip0_6_543"><rect fill="white" height="48" width="48"></rect></clippath>
-</defs>
-</svg>
+<div class="flex items-center gap-3">
+<div class="flex items-center justify-center size-9 bg-primary rounded-lg text-white">
+<span class="material-symbols-outlined text-2xl">lens_blur</span>
 </div>
-<h2 class="text-white text-xl font-bold leading-tight tracking-[-0.015em]">PhotoSphere</h2>
+<h2 class="text-xl font-bold leading-tight tracking-tight">PhotoSphere</h2>
 </div>
-<label class="hidden md:flex flex-col min-w-40 !h-10 max-w-64">
-<div class="flex w-full flex-1 items-stretch rounded-lg h-full">
-<div class="text-[#92adc9] flex border-none bg-surface-dark items-center justify-center pl-4 rounded-l-lg border-r-0">
-<span class="material-symbols-outlined text-[24px]">search</span>
-</div>
-<input class="form-input flex w-full min-w-0 flex-1 resize-none overflow-hidden rounded-lg text-white focus:outline-0 focus:ring-0 border-none bg-surface-dark focus:border-none h-full placeholder:text-[#92adc9] px-4 rounded-l-none border-l-0 pl-2 text-base font-normal leading-normal" placeholder="Search albums..." value=""/>
-</div>
+<div class="hidden md:flex items-center">
+<label class="relative flex items-center w-80">
+<span class="material-symbols-outlined absolute left-3 text-slate-400 text-lg">search</span>
+<input class="w-full h-10 pl-10 pr-4 rounded-xl border-none bg-slate-100 dark:bg-[#233648] text-sm focus:ring-2 focus:ring-primary/50 placeholder:text-slate-500 dark:placeholder:text-[#92adc9]" placeholder="Search photos, people, or albums" type="text"/>
 </label>
 </div>
-<div class="flex flex-1 justify-end gap-6 items-center">
-<button class="group flex max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-full h-10 w-10 bg-surface-dark hover:bg-[#324d67] text-white transition-colors">
-<span class="material-symbols-outlined text-[22px] group-hover:text-primary transition-colors">notifications</span>
-</button>
-<div class="bg-center bg-no-repeat aspect-square bg-cover rounded-full size-10 border-2 border-surface-dark cursor-pointer hover:border-primary transition-colors" data-alt="User profile picture of a smiling man outdoors" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuDEvERymEBLjlr7JTqm41jYUqW6l1Gyj8r_4fmbLKdBDuntx8rlWrIreWWENwG3jtFY7OfgIIl1Dv4KLai_miqN-2ZzsfHtW9_wVbMv6jU8GyLwyJBZB5fazg5kpwpmB5HEUS17T9P7_9wLXoqS2Pqi8dMM0xoNf4nDXhboZ5MGHYUlQ4pZNh8T3gVI5_vpGW7o_yKMmEfluoZ1xhBuSr3xBDQYki6m5NEATZSUzJJF53IKsFrxtOC5MQIsSPJN07gA3a2v3_l9vIgo");'></div>
+</div>
+<div class="flex items-center gap-4">
+<nav class="hidden lg:flex items-center gap-6 mr-4">
+<a class="text-sm font-medium hover:text-primary transition-colors" href="#">Explore</a>
+<a class="text-sm font-medium hover:text-primary transition-colors" href="#">Albums</a>
+<a class="text-sm font-medium hover:text-primary transition-colors" href="#">Challenges</a>
+</nav>
+
+<div class="h-10 w-px bg-slate-200 dark:bg-[#233648] mx-1"></div>
+<div class="size-10 rounded-full border-2 border-primary/20 p-0.5 cursor-pointer">
+<div class="size-full rounded-full bg-center bg-cover" data-alt="User profile avatar" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuCQOFTVNWQ_rTuyDLkyR7S6Dvf396HE4aL_QGUUVKBVVtZPG4AVt4_uEDJ0KnVD_paH-DDmDk_ZGbI84Vp4B3rjs6UZyBF3Tf5k2EJK6eTce-0qyBO6TreBMdOQLy8t77-sQ8ivSPb-VQ7SX5N_51wZnB6eb8CBWr4QMY7aD4ROflAK7URQD2cn39K6QHsrbiD1o-P_miqNOH3XMtSz8ZSg9i37pm_i8eCQcYi4jlrdvqEh2JDIgQ05RSDe-jUQdl_aO2J31nSLR1Nu");'></div>
+</div>
 </div>
 </header>
 <div class="flex flex-1 overflow-hidden">
-<!-- Left Sidebar -->
-<aside class="w-72 bg-[#111a22] border-r border-border-dark flex flex-col justify-between p-4 hidden md:flex shrink-0">
+<aside class="w-64 shrink-0 flex-col justify-between border-r border-slate-200 dark:border-[#233648] bg-white dark:bg-background-dark p-4 hidden md:flex">
 <div class="flex flex-col gap-6">
-<!-- Navigation -->
-<div class="flex flex-col gap-2">
-<p class="px-3 text-xs font-bold text-[#92adc9] uppercase tracking-wider mb-1">Discover</p>
-<a class="flex items-center gap-3 px-3 py-2 text-white hover:bg-surface-dark rounded-lg transition-colors" href="#">
-<span class="material-symbols-outlined text-[24px] text-[#92adc9]">newspaper</span>
-<p class="text-sm font-medium leading-normal">My Feed</p>
+<div class="space-y-1">
+<p class="px-3 pb-2 text-[10px] font-bold uppercase tracking-widest text-slate-400 dark:text-[#92adc9]">Menu</p>
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-xl hover:bg-slate-100 dark:hover:bg-[#233648] group transition-all" href="#">
+<span class="material-symbols-outlined text-slate-500 group-hover:text-primary">home</span>
+<span class="text-sm font-medium">Home</span>
 </a>
-<a class="flex items-center gap-3 px-3 py-2 text-white hover:bg-surface-dark rounded-lg transition-colors" href="#">
-<span class="material-symbols-outlined text-[24px] text-[#92adc9]">explore</span>
-<p class="text-sm font-medium leading-normal">Explore</p>
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-xl hover:bg-slate-100 dark:hover:bg-[#233648] group transition-all" href="/Views/gallery.view.php">
+<span class="material-symbols-outlined text-slate-500 group-hover:text-primary">explore</span>
+<span class="text-sm font-medium">Explore</span>
 </a>
-</div>
-<div class="flex flex-col gap-2">
-<p class="px-3 text-xs font-bold text-[#92adc9] uppercase tracking-wider mb-1">Library</p>
-<a class="flex items-center gap-3 px-3 py-2 rounded-lg bg-surface-dark border-l-4 border-primary shadow-sm" href="#">
-<span class="material-symbols-outlined text-[24px] text-primary fill-1">photo_library</span>
-<p class="text-white text-sm font-bold leading-normal">Public Albums</p>
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-xl bg-primary/10 text-primary transition-all" href="/Views/basicuser.view.php">
+<span class="material-symbols-outlined text-slate-500 group-hover:text-primary">photo_library</span>
+<span class="text-sm font-bold">Albums</span>
 </a>
-<a class="flex items-center gap-3 px-3 py-2 text-white hover:bg-surface-dark rounded-lg transition-colors" href="#">
-<span class="material-symbols-outlined text-[24px] text-[#92adc9]">favorite</span>
-<p class="text-sm font-medium leading-normal">Favorites</p>
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-xl hover:bg-slate-100 dark:hover:bg-[#233648] group transition-all" href="#">
+<span class="material-symbols-outlined text-slate-500 group-hover:text-primary">favorite</span>
+<span class="text-sm font-medium">Liked Photos</span>
 </a>
-<a class="flex items-center gap-3 px-3 py-2 text-white hover:bg-surface-dark rounded-lg transition-colors" href="#">
-<span class="material-symbols-outlined text-[24px] text-[#92adc9]">lock</span>
-<p class="text-sm font-medium leading-normal">Private Vault</p>
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-xl hover:bg-slate-100 dark:hover:bg-[#233648] group transition-all" href="#">
+<span class="material-symbols-outlined text-slate-500 group-hover:text-primary">group</span>
+<span class="text-sm font-medium">Following</span>
 </a>
 </div>
+<div class="space-y-1">
+<p class="px-3 pb-2 text-[10px] font-bold uppercase tracking-widest text-slate-400 dark:text-[#92adc9]">Your Library</p>
+<a class="flex items-center gap-3 px-3 py-2 rounded-xl hover:bg-slate-100 dark:hover:bg-[#233648] transition-all" href="#">
+<div class="size-6 rounded bg-gradient-to-br from-indigo-500 to-purple-500"></div>
+<span class="text-sm font-medium">Street Vibes</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 rounded-xl hover:bg-slate-100 dark:hover:bg-[#233648] transition-all" href="#">
+<div class="size-6 rounded bg-gradient-to-br from-emerald-500 to-teal-500"></div>
+<span class="text-sm font-medium">Macro Nature</span>
+</a>
 </div>
-<!-- Upload Widget -->
-<div class="flex flex-col gap-4 p-4 rounded-xl bg-surface-dark border border-border-dark shadow-sm">
-<div class="flex flex-col gap-3">
-<div class="flex gap-2 justify-between items-end">
-<p class="text-white text-xs font-bold uppercase tracking-wider">Monthly Uploads</p>
-<p class="text-primary text-xs font-bold">70%</p>
 </div>
-<!-- Progress Bar -->
-<div class="rounded-full bg-[#111a22] h-2.5 overflow-hidden">
-<div class="h-full rounded-full bg-primary" style="width: 70%;"></div>
+<div class="p-3 bg-slate-50 dark:bg-[#1a2632] rounded-2xl border border-slate-100 dark:border-[#233648]">
+<div class="flex items-center justify-between mb-2">
+<p class="text-[11px] font-bold text-slate-500 dark:text-[#92adc9]">Storage</p>
+<p class="text-[11px] font-bold text-primary">85%</p>
 </div>
-<p class="text-[#92adc9] text-xs font-medium leading-normal">7 / 10 uploads used</p>
+<div class="w-full h-1.5 bg-slate-200 dark:bg-[#233648] rounded-full overflow-hidden">
+<div class="h-full bg-primary w-[85%]"></div>
 </div>
-<!-- Upload Button -->
-<button class="flex w-full cursor-pointer items-center justify-center overflow-hidden rounded-lg h-10 px-4 bg-primary hover:bg-blue-600 text-white text-sm font-bold leading-normal tracking-[0.015em] transition-colors shadow-lg shadow-blue-900/20 group">
-<span class="material-symbols-outlined mr-2 text-[20px] group-hover:animate-bounce">cloud_upload</span>
-<span class="truncate">Upload Photo</span>
-</button>
+<button class="w-full mt-3 py-2 text-[11px] font-bold text-primary hover:text-primary/80 transition-colors uppercase tracking-wider">Upgrade Space</button>
 </div>
 </aside>
-<!-- Main Content Area -->
-<main class="flex-1 flex flex-col overflow-y-auto bg-background-light dark:bg-background-dark relative">
-<!-- Content Container -->
-<div class="p-6 md:p-10 max-w-7xl mx-auto w-full flex flex-col gap-8">
-<!-- Page Heading & Filters -->
-<div class="flex flex-wrap items-center justify-between gap-4">
-<div class="flex flex-col gap-1">
-<h1 class="text-slate-900 dark:text-white text-[32px] font-bold leading-tight">Public Albums</h1>
-<p class="text-slate-500 dark:text-[#92adc9] text-sm">Manage and share your photography collections.</p>
+<main class="flex-1 overflow-y-auto custom-scrollbar bg-slate-50 dark:bg-background-dark relative">
+<div class="max-w-[1000px] mx-auto px-6 py-8">
+<div class="flex flex-col md:flex-row md:items-end justify-between gap-4 mb-8">
+<div>
+<h1 class="text-3xl font-extrabold tracking-tight mb-2">Community Feed</h1>
+<p class="text-slate-500 dark:text-[#92adc9]">Engage with the latest perspectives from our community.</p>
 </div>
-<div class="flex gap-3">
-<button class="flex items-center justify-center rounded-lg h-9 px-3 bg-white dark:bg-[#233648] border border-slate-200 dark:border-transparent text-slate-700 dark:text-white text-sm font-medium hover:bg-slate-50 dark:hover:bg-[#324d67] transition-colors">
-<span class="material-symbols-outlined mr-2 text-[18px]">sort</span>
-                            Newest First
-                        </button>
-<button class="hidden sm:flex items-center justify-center rounded-lg h-9 px-4 bg-primary/10 hover:bg-primary/20 text-primary text-sm font-bold transition-colors">
-<span class="material-symbols-outlined mr-2 text-[18px]">add_photo_alternate</span>
-                            Create Album
-                        </button>
+<div class="flex items-center gap-3">
+<button class="flex items-center gap-2 px-4 py-2 bg-white dark:bg-[#233648] border border-slate-200 dark:border-transparent rounded-xl text-sm font-semibold shadow-sm hover:shadow-md transition-all">
+<span class="material-symbols-outlined text-lg">filter_list</span>
+<span>Filter Feed</span>
+</button>
 </div>
 </div>
-<!-- Albums Grid -->
+<div class="flex items-center justify-between border-b border-slate-200 dark:border-[#324d67] mb-6">
+<div class="flex gap-8">
+<a class="flex flex-col items-center justify-center border-b-[3px] border-b-transparent text-slate-500 dark:text-[#92adc9] pb-[13px] pt-4 hover:text-primary transition-all" href="#">
+<p class="text-sm font-bold leading-normal tracking-wide">Latest</p>
+</a>
+<a class="flex flex-col items-center justify-center border-b-[3px] border-b-primary text-primary pb-[13px] pt-4" href="#">
+<p class="text-sm font-bold leading-normal tracking-wide">Trending</p>
+</a>
+<a class="flex flex-col items-center justify-center border-b-[3px] border-b-transparent text-slate-500 dark:text-[#92adc9] pb-[13px] pt-4 hover:text-primary transition-all" href="#">
+<p class="text-sm font-bold leading-normal tracking-wide">Most Popular</p>
+</a>
+</div>
+<div class="flex gap-2 pb-2">
+<button class="flex items-center justify-center size-8 rounded-lg text-slate-400 hover:bg-white dark:hover:bg-[#233648] transition-all">
+<span class="material-symbols-outlined text-xl">view_agenda</span>
+</button>
+<button class="flex items-center justify-center size-8 rounded-lg text-primary bg-white dark:bg-[#233648] shadow-sm transition-all">
+<span class="material-symbols-outlined text-xl">grid_view</span>
+</button>
+</div>
+</div>
+
+<!-- albums -->
 <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
 <!-- Card 1 -->
 <div class="group flex flex-col gap-3 cursor-pointer">
@@ -244,7 +238,66 @@
 </div>
 </div>
 </div>
+
+<div class="flex flex-col items-center justify-center py-12 gap-3 opacity-50">
+<div class="size-8 border-2 border-primary border-t-transparent rounded-full animate-spin"></div>
+<p class="text-xs font-bold tracking-widest uppercase text-slate-500 dark:text-[#92adc9]">Gathering more shots...</p>
 </div>
+</div>
+<button class="fixed bottom-6 right-6 sm:hidden size-14 rounded-full bg-primary text-white shadow-2xl flex items-center justify-center z-50">
+<span class="material-symbols-outlined text-3xl">add</span>
+</button>
 </main>
+<aside class="w-80 shrink-0 border-l border-slate-200 dark:border-[#233648] bg-white dark:bg-background-dark p-6 overflow-y-auto hidden xl:flex flex-col gap-8">
+<div>
+<h3 class="text-sm font-extrabold uppercase tracking-widest text-slate-400 dark:text-[#92adc9] mb-4">Trending Tags</h3>
+<div class="flex flex-wrap gap-2">
+<a class="px-3 py-1.5 rounded-lg bg-slate-100 dark:bg-[#233648] text-xs font-bold hover:bg-primary hover:text-white transition-all" href="#">#UrbanExplorer</a>
+<a class="px-3 py-1.5 rounded-lg bg-slate-100 dark:bg-[#233648] text-xs font-bold hover:bg-primary hover:text-white transition-all" href="#">#Cinematic</a>
+<a class="px-3 py-1.5 rounded-lg bg-slate-100 dark:bg-[#233648] text-xs font-bold hover:bg-primary hover:text-white transition-all" href="#">#B&amp;W</a>
+<a class="px-3 py-1.5 rounded-lg bg-slate-100 dark:bg-[#233648] text-xs font-bold hover:bg-primary hover:text-white transition-all" href="#">#Wildlife</a>
+<a class="px-3 py-1.5 rounded-lg bg-slate-100 dark:bg-[#233648] text-xs font-bold hover:bg-primary hover:text-white transition-all" href="#">#GoldenHour</a>
 </div>
+</div>
+<div>
+<div class="flex items-center justify-between mb-4">
+<h3 class="text-sm font-extrabold uppercase tracking-widest text-slate-400 dark:text-[#92adc9]">Top Photographers</h3>
+<a class="text-[10px] font-bold text-primary hover:underline" href="#">View All</a>
+</div>
+<div class="space-y-4">
+<div class="flex items-center gap-3">
+<div class="size-10 rounded-xl bg-center bg-cover" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuDAdX9gpThQAhXto9QKPeFJ1Tsa_zZg0vqfSI2ALPrSqJry116Ql3_QFFu2km1Q7eC-yiGBOsDypv1yu032vzbEK9EHS3-hMqZnhFHnIPrfr7VjAWNeNKaefYISbUJrZXNBDOP76raHdAm71eDfh056jgZOIEiQx_GizqJB7GlPZMDHNllTNsfxYyv3oeBrXOFvR7sHgxlaMqrSE0AlZt-A0-dzcV6xVkfLa6g9wknLqjnjPg7bZetL7y-Nlcmv79bzVPLaofT8deyr");'></div>
+<div class="flex-1">
+<p class="text-xs font-bold">Liam G. Thompson</p>
+<p class="text-[10px] text-slate-400 dark:text-[#92adc9]">2.4k followers</p>
+</div>
+<button class="size-8 rounded-lg bg-slate-100 dark:bg-[#233648] flex items-center justify-center hover:bg-primary group transition-all">
+<span class="material-symbols-outlined text-sm group-hover:text-white">person_add</span>
+</button>
+</div>
+<div class="flex items-center gap-3">
+<div class="size-10 rounded-xl bg-center bg-cover" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuDK6pun9JHNIk55Io6Rxw_8bt0Vw1govPqR-FUQwv_CtgbfVnd58WmHw1YBJJBFtYWEAn2pi5MJ54v8xW2b63UcjG2KmkW7UUs_m_lBoUZSrwl5LbkLLJFuSLzPB5rEkpkUdzDihQT_aCzRUWrci5jc4HHtzihsTM3N3c9XGgkVQMf181nIVcPfJ1bdxctd_-VuHGJFJxO-l8s_HRiAvotSxa6Qqkc8IuqpN3tMXxDE8nip9rEOz_2Ayaxpiyw0pJLgCXfFiT5EeTXD");'></div>
+<div class="flex-1">
+<p class="text-xs font-bold">Isabella Rossi</p>
+<p class="text-[10px] text-slate-400 dark:text-[#92adc9]">5.1k followers</p>
+</div>
+<button class="size-8 rounded-lg bg-slate-100 dark:bg-[#233648] flex items-center justify-center hover:bg-primary group transition-all">
+<span class="material-symbols-outlined text-sm group-hover:text-white">person_add</span>
+</button>
+</div>
+</div>
+</div>
+<div class="mt-auto p-5 rounded-2xl bg-gradient-to-br from-primary/10 to-transparent border border-primary/20 relative overflow-hidden group">
+<div class="relative z-10">
+<p class="text-xs font-bold text-primary uppercase tracking-widest mb-1">Weekly Challenge</p>
+<h4 class="text-sm font-bold mb-3">Reflections in the Rain</h4>
+<p class="text-[11px] text-slate-500 dark:text-[#92adc9] mb-4">Share your best rainy street photography for a chance to be featured!</p>
+<button class="w-full py-2 bg-primary text-white text-[11px] font-bold rounded-lg hover:opacity-90 transition-all">Join Challenge</button>
+</div>
+<span class="material-symbols-outlined absolute -right-2 -bottom-2 text-6xl text-primary/10 group-hover:scale-110 transition-transform">water_drop</span>
+</div>
+</aside>
+</div>
+</div>
+
 </body></html>

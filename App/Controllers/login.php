@@ -26,12 +26,15 @@ if (Auth::login($email, $password)) {
             header("Location: /Views/basicuser.view.php");
             break;
         case 'admin':
-            header("Location: /Views/basicuser.views.phpp");
+            header("Location: /Views/basicuser.view.php");
             break;
         default:
+            
             break;
     }
-    
+
 }else{
-    $errors['auth'] = 'Problem in authantification ';
+    $_SESSION['auth'] = 'Problem in authantification';
+    header("Location: /Views/login.view.php");
+    exit();
 }

@@ -1,12 +1,10 @@
-<!DOCTYPE html>
+
 <?php
 session_start();
 
-$errors = $_SESSION['errors'] ?? [];
-
-unset($_SESSION['errors']);
 ?>
 
+<!DOCTYPE html>
 <html class="dark" lang="en">
 
 <head>
@@ -182,11 +180,13 @@ unset($_SESSION['errors']);
                         </div>
                     </div>
                     <!-- error -->
-                    <?php if (!empty($errors['auth'])): ?>
+                    <?php if (!empty($_SESSION['auth'])): ?>
                                 <div class="error mt-2 text-[14px] text-red-500/80">
-                                    <?= htmlspecialchars($errors['auth']) ?>
+                                    <?= htmlspecialchars($_SESSION['auth']);
+                                    unset($_SESSION['auth']);?>
+                                    
                                 </div>
-                            <?php endif; ?>
+                    <?php endif; ?>
                     <!-- Submit Button -->
                     <div>
                         <button

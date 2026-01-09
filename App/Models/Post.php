@@ -1,6 +1,6 @@
 <?php
 
-class Photo {
+class Post {
     private ?int $id;
     private int $userId;
     private string $title;
@@ -15,6 +15,7 @@ class Photo {
     private int $likeCount;
     private DateTime $createdAt;
     private DateTime $updatedAt;
+    private array $tags = [];
 
     public function __construct(
         ?int $id,
@@ -30,7 +31,8 @@ class Photo {
         int $viewCount,
         int $likeCount,
         DateTime $createdAt,
-        DateTime $updatedAt
+        DateTime $updatedAt,
+        array $tags
     ) {
         $this->id = $id;
         $this->userId = $userId;
@@ -46,5 +48,22 @@ class Photo {
         $this->likeCount = $likeCount;
         $this->createdAt = $createdAt;
         $this->updatedAt = $updatedAt;
+        $this->tags = $tags;
     }
+
+    public function getId(): ?int { return $this->id; }
+    public function getUserId(): int { return $this->userId; }
+    public function getTitle(): string { return $this->title; }
+    public function getDescription(): ?string { return $this->description; }
+    public function getFilePath(): string { return $this->filePath; }
+    public function getFileSize(): int { return $this->fileSize; }
+    public function getMimeType(): string { return $this->mimeType; }
+    public function getDimensions(): string { return $this->dimensions; }
+    public function getStatus(): string { return $this->status; }
+    public function getPublishedAt(): ?DateTime { return $this->publishedAt; }
+    public function getViewCount(): int { return $this->viewCount; }
+    public function getLikeCount(): int { return $this->likeCount; }
+    public function getCreatedAt(): DateTime { return $this->createdAt; }
+    public function getUpdatedAt(): DateTime { return $this->updatedAt; }
+    public function getTags(): array { return $this->tags; }
 }

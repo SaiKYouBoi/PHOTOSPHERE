@@ -19,3 +19,4 @@ require_once __DIR__ . '/App/Repositories/AlbumRepository.php';
     <a href="/Views/login.view.php">Login</a>
 </body>
 </html>
+
